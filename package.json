@@ -1,0 +1,33 @@
+{
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@types/react": "npm:types-react@rc",
+    "@types/react-dom": "npm:types-react-dom@rc",
+    "@vitejs/plugin-react": "^4.2.1",
+    "autoprefixer": "^10.4.18",
+    "eslint": "^8.56.0",
+    "eslint-plugin-react": "^7.33.2",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-react-refresh": "^0.4.5",
+    "fetch-suspense": "^1.2.2",
+    "postcss": "^8.4.35",
+    "react": "^19.0.0-rc-f994737d14-20240522",
+    "react-dom": "^19.0.0-rc-f994737d14-20240522",
+    "react-router-dom": "^6.23.1",
+    "swr": "^2.2.5",
+    "tailwindcss": "^3.4.1",
+    "vite": "^5.1.4"
+  },
+  "overrides": {
+    "@types/react": "npm:types-react@rc",
+    "@types/react-dom": "npm:types-react-dom@rc"
+  }
+}
