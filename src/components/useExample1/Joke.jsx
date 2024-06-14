@@ -1,37 +1,24 @@
-import { use, Suspense, useState, useCallback, useEffect } from 'react';
-import useFetch from 'fetch-suspense';
+import { Suspense } from 'react';
+import useSWR from 'swr'
 
-const fetchData = async () => {
-  const res = await fetch('https://api.chucknorris.io/jokes/random');
-  return res.json();
-};
+// fetch with 1s delay built in
+const fetcher = (url) => fetch(url).then((res) => res.json()).then((data) => new Promise((resolve) => setTimeout(() => resolve(data), 1000)));
 
 const JokeItem = () => {
   // useFetch uses suspense and kinda works like use() here
-  const res = useFetch('https://api.chucknorris.io/jokes/random')
-  // default state is fetched data, can't set state when
-  // component not rendered
-  const [ data, setData ] = useState(res); 
+  const { data, error, isValidating, mutate } = useSWR("https://api.chucknorris.io/jokes/random", fetcher, { suspense: true });
+
 
   // the compile auto-memo's this
   const scream = data?.value.toUpperCase();
 
-  // as expected I need some state to handle the refetching
-  // suspense handles the intial loading but of course not this
-  const [ isLoading, setIsLoading ] = useState(false);
-  async function fetchJoke() {
-    setIsLoading(true);
-    // I have to use regular fetch here, if I use useFetch
-    // I get the cached result
-    const res = await fetch('https://api.chucknorris.io/jokes/random')
-    const json = await res.json()
-
-    setData(json);
-    setIsLoading(false);
+  function fetchJoke () {
+    mutate();
   }
+
   return (
     <div 
-      className={`${isLoading ? 'bg-blue-50' : 'bg-gray-50'} shadow-md p-4 my-6 rounded-lg`}
+      className={`${isValidating ? 'bg-blue-50' : 'bg-gray-50'} shadow-md p-4 my-6 rounded-lg`}
       onClick={fetchJoke}
     >
       <h2 className='text-xl font-bold'>{scream}</h2>
