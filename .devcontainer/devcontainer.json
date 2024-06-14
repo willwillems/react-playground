@@ -1,0 +1,26 @@
+{
+   "image": "mcr.microsoft.com/devcontainers/universal:2",
+   "hostRequirements": {
+     "cpus": 2
+   },
+   "waitFor": "onCreateCommand",
+   "updateContentCommand": "npm i -f",
+   "postCreateCommand": "",
+   "postAttachCommand": {
+     "server": "npm run dev"
+   },
+   "customizations": {
+     "codespaces": {
+       "openFiles": [
+         "src/main.jsx"
+       ]
+    }
+  },
+   "portsAttributes": {
+     "3000": {
+       "label": "Application",
+       "onAutoForward": "openPreview"
+     }
+   },
+   "forwardPorts": [3000]
+}
