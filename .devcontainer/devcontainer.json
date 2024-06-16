@@ -1,26 +1,32 @@
 {
    "image": "mcr.microsoft.com/devcontainers/universal:2",
    "hostRequirements": {
-     "cpus": 2
+      "cpus": 2
    },
    "waitFor": "onCreateCommand",
    "updateContentCommand": "npm i -f",
    "postCreateCommand": "",
    "postAttachCommand": {
-     "server": "npm run dev"
+      "server": "npm run dev"
    },
    "customizations": {
-     "codespaces": {
-       "openFiles": [
-         "src/main.jsx"
-       ]
-    }
-  },
+      "codespaces": {
+         "openFiles": [
+            "src/main.jsx"
+         ]
+      },
+      "vscode": {
+         "extensions": [
+            "dbaeumer.vscode-eslint",
+            "esbenp.prettier-vscode"
+         ]
+      }
+   },
    "portsAttributes": {
-     "3000": {
-       "label": "Application",
-       "onAutoForward": "openPreview"
-     }
+      "3000": {
+         "label": "Application",
+         "onAutoForward": "openPreview"
+      }
    },
    "forwardPorts": [3000]
 }
