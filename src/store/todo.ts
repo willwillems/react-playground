@@ -1,29 +1,25 @@
-import { makeObservable, observable, action, computed } from "mobx"
+import { observable, action, computed } from "mobx"
 
 export class Todo {
     id = Math.random()
-    title = ""
-    finished = false
+    @observable accessor title = ""
+    @observable accessor finished = false
 
     constructor(title: string) {
-        makeObservable(this, {
-            title: observable,
-            finished: observable,
-            toggle: action,
-            urgentize: action,
-            scream: computed
-        })
         this.title = title
     }
 
+    @action
     toggle() {
         this.finished = !this.finished
     }
 
+    @action
     urgentize () {
         this.title = this.title + "!"
     }
 
+    @computed
     get scream () {
         return this.title.toUpperCase()
     }

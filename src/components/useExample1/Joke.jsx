@@ -4,7 +4,6 @@ import useSWR from 'swr'
 
 import { Todo } from '../../store/todo';
 import { observer } from 'mobx-react-lite';
-import { useSignals } from '@preact/signals-react/runtime';
 
 const count = signal(1);
 
@@ -22,13 +21,13 @@ const fetcher = (url) => fetch(url).then((res) => res.json()).then((data) => new
 const JokeItem = () => {
   console.log('Rendering: JokeItem')
   // useFetch uses suspense and kinda works like use() here
-  const { data, error, isValidating, mutate } = useSWR("https://jsonplaceholder.typicode.com/users", fetcher, { suspense: true });
+  const { data, error, isValidating, mutate } = useSWR("https://api.chucknorris.io/jokes/random", fetcher, { suspense: true });
 
 
   // the compile auto-memo's this
   const scream = data?.value?.toUpperCase();
 
-  const todo = new Todo(data[0].name);
+  const todo = new Todo(data.value);
 
   async function fetchJoke () {
     await mutate();
@@ -53,7 +52,11 @@ const JokeItem = () => {
 const Counter = ({ count }) => {
   console.log('Rendering: Counter')
 	// useSignals();
-  return <h1>({ count.value })</h1>
+
+  console.log('count', count.value)
+  const countString = `(#${count.value})`
+
+  return <h1>{ countString }</h1>
 }
 
 const Joke = () => {
